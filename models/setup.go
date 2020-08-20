@@ -1,39 +1,17 @@
 package models
 
 import (
-	"fmt"
-	"log"
-	"os"
+	"fmt" // new
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"github.com/joho/godotenv"
 )
 
 //Instatiate the GORM DB
 var DB *gorm.DB
 
-func goDotEnvVariable(key string) string {
-
-	// load .env file
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
-
-	return os.Getenv(key)
-}
-
 //Connect to the Databse
-func ConnectDataBase() {
-
-	host := goDotEnvVariable("host")
-	port := goDotEnvVariable("port")
-	user := goDotEnvVariable("user")
-	dbname := goDotEnvVariable("dbname")
-	password := goDotEnvVariable("password")
-	sslmode := goDotEnvVariable("sslmode")
+func ConnectDataBase(host string, port string, user string, dbname string, password string, sslmode string) {
 
 	//Connect to the Databse
 	database, err := gorm.Open("postgres", "host="+host+" port="+port+" user="+user+" dbname="+dbname+" password="+password+" sslmode="+sslmode)
@@ -42,6 +20,9 @@ func ConnectDataBase() {
 
 	if err != nil {
 		panic("Failed to connect to database!")
+	}
+	if err == nil {
+		fmt.Println("Connected to the Database!!!")
 	}
 
 	database.AutoMigrate(&Todo{})
