@@ -4,5 +4,5 @@ package models
 type Todo struct {
 	ID        uint   `json:"id" gorm:"primary_key"`
 	Title     string `json:"title"`
-	Completed bool   `json:"completed"  gorm:"default:false"`
+	Completed bool   `json:"completed"  gorm:"type: boolean; default:false"`
 }
