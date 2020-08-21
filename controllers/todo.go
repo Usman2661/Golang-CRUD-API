@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"net/http"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/usman2661/Todo-Crud-Go/models"
 )
@@ -24,7 +23,7 @@ func GetTodos(c *gin.Context) {
 	var todos []models.Todo
 	models.DB.Find(&todos)
 
-	c.JSON(http.StatusOK, gin.H{"data": todos})
+	c.JSON(http.StatusOK, todos)
 }
 
 //
@@ -40,18 +39,18 @@ func CreateTodo(c *gin.Context) {
 	todo := models.Todo{Title: todoInput.Title, Completed: todoInput.Completed}
 	models.DB.Create(&todo)
   
-	c.JSON(http.StatusOK, gin.H{"data": todo})
+	c.JSON(http.StatusCreated, todo)
   }
 
   func GetTodo(c *gin.Context) {  
 	var todo models.Todo
 
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&todo).Error; err != nil {
-	  c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+	  c.JSON(http.StatusBadRequest, gin.H{"error": "Todo not found!"})
 	  return
 	}
   
-	c.JSON(http.StatusOK, gin.H{"data": todo})
+	c.JSON(http.StatusOK, todo)
   }
 
   // Update the todo
@@ -70,12 +69,10 @@ func CreateTodo(c *gin.Context) {
 	  c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	  return
 	}
-
-	fmt.Println(todoInput);
   
 	models.DB.Model(&todo).Updates(todoInput)
   
-	c.JSON(http.StatusOK, gin.H{"data": todo})
+	c.JSON(http.StatusOK, todo )
   }
 
   func DeleteTodo(c *gin.Context) {
@@ -88,5 +85,5 @@ func CreateTodo(c *gin.Context) {
   
 	models.DB.Delete(&todo)
   
-	c.JSON(http.StatusOK, gin.H{"data": true})
+	c.JSON(http.StatusOK, todo )
   }
