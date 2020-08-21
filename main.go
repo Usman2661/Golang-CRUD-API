@@ -5,7 +5,6 @@ import (
 	"os"
 	"github.com/usman2661/Todo-Crud-Go/controllers"
 	"github.com/usman2661/Todo-Crud-Go/models"
-
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -23,7 +22,7 @@ func GoDotEnvVariable(key string) string {
 }
 
 func main() {
-	
+
 	router := gin.Default()
 
 	host := GoDotEnvVariable("host")
@@ -35,7 +34,11 @@ func main() {
 
 	models.ConnectDataBase(host, port, user, dbname, password, sslmode)
 
-	router.GET("/todos", controllers.GetTodos) // new
+	router.GET("/todos", controllers.GetTodos) //  Get all the todos
+	router.POST("/todos", controllers.CreateTodo) // Create a new todo
+	router.GET("/todos/:id", controllers.GetTodo) // Fetch a single todo using id
+	router.PUT("/todos/:id", controllers.UpdateTodo) // Update and existing todo id has to be passed
+	router.DELETE("/todos/:id", controllers.DeleteTodo) // Delete a todo using the id
 
 	router.Run()
 }
