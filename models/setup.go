@@ -13,6 +13,7 @@ var DB *gorm.DB
 //Connect to the Databse
 func ConnectDataBase(host string, port string, user string, dbname string, password string, sslmode string) {
 
+
 	//Connect to the Databse
 	database, err := gorm.Open("postgres", "host="+host+" port="+port+" user="+user+" dbname="+dbname+" password="+password+" sslmode="+sslmode)
 
