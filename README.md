@@ -1,9 +1,10 @@
 # Golang-CRUD-API
-Basic full CRUD API using golang.
+- [Todo Crud API using Gin,Gorm and PostgreSQL Database]
 
 # Instructions to run 
 
-1.Install golang from the golangs official website 
+- [1.Install golang from the golangs official website]
+
 2. Clone the project in go directory i.e. go/src/github.com/{username}
 3. Run command - go get to get all the dependances
 4. For Hot Reload make sure Gin is installed using go get github.com/codegangsta/gin. Then copy the gin.exe file from User/go/bin into the C:/Go/bin folder
