@@ -25,7 +25,7 @@ type UpdateTodoInput struct {
 func GetTodos(c *gin.Context) {
 
 	var todos []models.Todo
-	models.DB.Find(&todos)
+	models.DB.Order("id desc").Find(&todos)
 
 	c.JSON(http.StatusOK, todos)
 }
