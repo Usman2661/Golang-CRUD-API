@@ -101,3 +101,13 @@ func DeleteTodo(c *gin.Context) {
 
 	c.JSON(http.StatusOK, todo)
 }
+
+func GetCatagories(c *gin.Context) {
+
+	// var count int64
+	var todos []models.Todo
+	models.DB.Where("user_name = ?", c.Param("username")).Group("catagory , id").Find(&todos)
+
+	c.JSON(http.StatusOK, todos)
+
+}
